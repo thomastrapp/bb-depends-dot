@@ -1,0 +1,44 @@
+on: [push, pull_request]
+jobs:
+  build:
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+        build_type: [Release, Debug]
+    name: Build and run tests (${{ matrix.compiler }}, ${{ matrix.build_type }})
+    runs-on: ubuntu-latest
+    env:
+      CXX: ${{ matrix.compiler }}
+    steps:
+    - name: Info
+      run: cmake --version && $CXX --version && uname -a
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        repository: catchorg/Catch2
+        ref: v2.x
+        path: catch
+    - name: Install catch
+      working-directory: catch
+      run: >
+        mkdir build
+        && cd build
+        && cmake -DCMAKE_BUILD_TYPE=Release -DCATCH_BUILD_TESTING=Off ..
+        && sudo make install
+    - name: Install boost
+      run: sudo apt-get install libboost-graph-dev libboost-program-options-dev
+    - name: Build
+      run: >
+        cd build
+        && cmake -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_TESTING=On ..
+        && make -j2
+    - name: Run
+      run: ./build/bb-recipe-depend --version
+    - name: Run Test
+      run: ./test/bitbake-recipe-depend-test
+    - name: Test install
+      run: >
+        cd build
+        && sudo make install
+        && rm -rf *
+        && bb-recipe-depend --version
