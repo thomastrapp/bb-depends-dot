@@ -35,7 +35,7 @@ jobs:
     - name: Run
       run: ./build/bb-recipe-depend --version
     - name: Run Test
-      run: ./test/bitbake-recipe-depend-test
+      run: ./build/test/bitbake-recipe-depend-test
     - name: Test install
       run: >
         cd build
