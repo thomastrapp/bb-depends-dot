@@ -1,0 +1,25 @@
+// Author: Thomas Trapp - https://thomastrapp.com/
+// License: MIT
+
+#include "bbrd/Version.h"
+
+
+namespace bbrd {
+
+
+const int version_major = @PROJECT_VERSION_MAJOR@;
+
+const int version_minor = @PROJECT_VERSION_MINOR@;
+
+
+void PrintVersion(std::ostream& out)
+{
+  out << "bb-recipe-depend v" << version_major << "." << version_minor
+      << ", Copyright (C) 2021 Thomas Trapp\n"
+      << "Released under the MIT License\n"
+      << "https://github.com/thomastrapp/bitbake-recipe-depend\n";
+}
+
+
+} // namespace bbrd
+
