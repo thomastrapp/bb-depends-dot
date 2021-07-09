@@ -38,6 +38,10 @@ private:
 };
 
 
+template<typename OutputIterator>
+DependencyRecorder(OutputIterator) -> DependencyRecorder<OutputIterator>;
+
+
 } // namespace
 
 
