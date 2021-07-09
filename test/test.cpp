@@ -156,7 +156,7 @@ digraph depends {
   {
     for( auto t : test_data )
     {
-      INFO("Test data key " << t.first);
+      INFO("Test data key " << t.first)
       auto recipe = t.first;
       auto expected_result = t.second;
       auto result = run_and_extract(func, recipe, reverse);
@@ -257,7 +257,7 @@ TEST_CASE("dependency-graph-test-data")
 
   for(std::size_t i = 0; i != test_data.size(); ++i)
   {
-    INFO("Test data index " << i);
+    INFO("Test data index " << i)
     compare_test_data(std::get<0>(test_data.at(i)),
                       std::get<1>(test_data.at(i)),
                       std::get<2>(test_data.at(i)));
