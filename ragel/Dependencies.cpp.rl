@@ -15,11 +15,22 @@ namespace bbrd {
 
 
 namespace ragel {
+
+
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-const-variable"
+#endif
   %%{
     machine dot;
     include "dot-machine.rl";
     write data;
   }%%
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
+
+
 } // namespace ragel
 
 

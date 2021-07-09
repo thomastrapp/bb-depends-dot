@@ -17,8 +17,14 @@ namespace bbrd {
 
 
 namespace ragel {
+
+
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-const-variable"
+#endif
   
-#line 22 "Dependencies.cpp"
+#line 28 "Dependencies.cpp"
 static const char _dot_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
 	3, 1, 6, 2, 4, 5
@@ -91,7 +97,12 @@ static const int dot_en_consume_line = 12;
 static const int dot_en_main = 13;
 
 
-#line 22 "Dependencies.cpp.rl"
+#line 28 "Dependencies.cpp.rl"
+
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
+
 
 } // namespace ragel
 
@@ -144,12 +155,12 @@ void Dependencies::extract_from_dot(const std::string& buffer)
 #pragma GCC diagnostic ignored "-Wunreachable-code-break"
 #endif
   
-#line 148 "Dependencies.cpp"
+#line 159 "Dependencies.cpp"
 	{
 	cs = dot_start;
 	}
 
-#line 153 "Dependencies.cpp"
+#line 164 "Dependencies.cpp"
 	{
 	int _klen;
 	unsigned int _trans;
@@ -251,7 +262,7 @@ _match:
 #line 39 "dot-machine.rl"
 	{ p--; {cs = 12;goto _again;} }
 	break;
-#line 255 "Dependencies.cpp"
+#line 266 "Dependencies.cpp"
 		}
 	}
 
@@ -281,7 +292,7 @@ _again:
 		goto _test_eof;
 goto _again;} }
 	break;
-#line 285 "Dependencies.cpp"
+#line 296 "Dependencies.cpp"
 		}
 	}
 	}
@@ -289,7 +300,7 @@ goto _again;} }
 	_out: {}
 	}
 
-#line 78 "Dependencies.cpp.rl"
+#line 89 "Dependencies.cpp.rl"
 
 #ifndef _MSC_VER
 #pragma GCC diagnostic pop
