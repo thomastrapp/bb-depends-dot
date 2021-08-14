@@ -4,6 +4,8 @@ BitBake Recipe Dependencies
 List recipes from Bitbake's `task-depends.dot` and the dependencies
 between these recipes.
 
+Note: [openembedded-core](https://github.com/openembedded/openembedded-core) ships the script [oe-depends-dot](https://github.com/openembedded/openembedded-core/blob/0441b53d55a919b5ac42e997f4092053b017b553/scripts/oe-depends-dot), which solves the same problem as this project. But that script does not work anymore, because the output of `bitbake -g` has changed.
+
 Example:
 
 ```shell
@@ -16,6 +18,10 @@ bb-recipe-depend task-depends.dot curl
 # list recipes that have at least one task that directly depends on a task
 # from recipe "curl":
 bb-recipe-depend task-depends.dot -r curl
+
+# list recipes that have at least one task that transitively depends on a task
+# from recipe "curl":
+bb-recipe-depend task-depends.dot -tr curl
 
 # list recipes with at least one task that recipe "curl" depends on, and list
 # all their dependencies
@@ -48,7 +54,6 @@ Options:
 
 Dependencies:
 
-* Linux-based OS
 * A compiler with `C++17` support, such as `g++` ≥7 or  `clang++` ≥5
 * `cmake` ≥3.10
 * `libboost-dev`
@@ -64,7 +69,12 @@ make
 make install
 ```
 
-**Note**: The DOT parser is very simplistic - It won't parse any DOT files
-properly, but the output of `bitbake -g`.
+How it works:
 
-
+* `bitbake -g` generates a file called `task-depends.dot` containing a graph described with the [DOT language](https://en.wikipedia.org/wiki/DOT_(graph_description_language)).
+* This graph contains an edge for each dependency between [tasks](https://docs.yoctoproject.org/ref-manual/tasks.html) of the [recipes](https://docs.yoctoproject.org/dev-manual/common-tasks.html#writing-a-new-recipe) contained in a build.
+* `bitbake-recipe-depend` [parses](https://github.com/thomastrapp/bitbake-recipe-depend/blob/master/ragel/dot-machine.rl) the `taks-depends.dot` file to build a [graph](https://github.com/thomastrapp/bitbake-recipe-depend/blob/master/bbrd/bbrd/DependencyGraph.h) of the [dependencies](https://github.com/thomastrapp/bitbake-recipe-depend/blob/master/bbrd/bbrd/Dependencies.h) between recipes.
+* Transitive dependencies are resolved by using a breadth first search while recording the vertices (i.e. recipes).
+* Direct dependencies are resolved by simply recording the adjacent vertices of the directed graph.
+* The option `--rdepends` transforms the graph with [boost::reverse\_graph](https://www.boost.org/doc/libs/1_77_0/libs/graph/doc/reverse_graph.html).
+* Note that `bitbake-recipe-depend` cannot parse arbitrary DOT. Only the output file of `bitbake -g` is supported.
