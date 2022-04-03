@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
-project(bb-depends-dot VERSION 0.1.0)
+project(bb-depends-dot VERSION 0.2.0)
 
 # Add the top-level cmake module directory to CMAKE_MODULE_PATH
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/cmake)
