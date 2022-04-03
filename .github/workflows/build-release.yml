@@ -35,6 +35,7 @@ jobs:
         mkdir upload
         cp /usr/local/bin/bb-depends-dot upload/
         strip --strip-unneeded upload/bb-depends-dot
+        sha256sum upload/bb-depends-dot
 
     - uses: actions/upload-artifact@v1
       with:
