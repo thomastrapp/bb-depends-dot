@@ -64,7 +64,7 @@ chmod +x bb-depends-dot
 mv -i bb-depends-dot ~/.local/bin/
 ```
 
-This binary runs on any 64-bit Linux with GLIBC≥2.14, which was released back in the year 2011.
+This binary runs on any Linux (x86-64) with GLIBC≥2.14, which was released back in the year 2011.
 
 ## Build from source:
 
