@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
-project(bitbake-recipe-depend-test)
+project(bb-depends-dot-test)
 
 # Add the top-level cmake module directory to CMAKE_MODULE_PATH
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/../cmake)
@@ -10,18 +10,18 @@ find_package(Catch2 REQUIRED)
 find_package(Boost COMPONENTS graph REQUIRED)
 
 add_executable(
-  bitbake-recipe-depend-test
+  bb-depends-dot-test
   "${PROJECT_SOURCE_DIR}/../bbrd/bbrd/DependencyGraph.cpp"
   "${PROJECT_SOURCE_DIR}/../ragel/Dependencies.cpp"
   "${PROJECT_SOURCE_DIR}/test.cpp")
-enable_warnings(bitbake-recipe-depend-test PUBLIC)
+enable_warnings(bb-depends-dot-test PUBLIC)
 target_link_libraries(
-  bitbake-recipe-depend-test
+  bb-depends-dot-test
   Boost::graph
   Catch2::Catch2
   "-fsanitize=address")
 target_include_directories(
-  bitbake-recipe-depend-test PUBLIC
+  bb-depends-dot-test PUBLIC
   "${PROJECT_SOURCE_DIR}/../bbrd")
-target_compile_features(bitbake-recipe-depend-test PUBLIC cxx_std_17)
-target_compile_options(bitbake-recipe-depend-test PUBLIC "-fsanitize=address")
+target_compile_features(bb-depends-dot-test PUBLIC cxx_std_17)
+target_compile_options(bb-depends-dot-test PUBLIC "-fsanitize=address")

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
-project(bb-recipe-depend VERSION 0.1.0)
+project(bb-depends-dot VERSION 0.1.0)
 
 # Add the top-level cmake module directory to CMAKE_MODULE_PATH
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/cmake)
@@ -13,7 +13,7 @@ configure_file(
   @ONLY)
 
 add_executable(
-  bb-recipe-depend
+  bb-depends-dot
   "${CMAKE_CURRENT_BINARY_DIR}/Version.cpp"
   "${PROJECT_SOURCE_DIR}/bbrd/bbrd/DependencyGraph.cpp"
   "${PROJECT_SOURCE_DIR}/bbrd/bbrd/ErrorOutput.cpp"
@@ -23,20 +23,20 @@ add_executable(
   "${PROJECT_SOURCE_DIR}/bbrd/main.cpp")
 
 include(EnableWarnings)
-enable_warnings(bb-recipe-depend PUBLIC)
+enable_warnings(bb-depends-dot PUBLIC)
 
-target_link_libraries(bb-recipe-depend Boost::graph Boost::program_options)
+target_link_libraries(bb-depends-dot Boost::graph Boost::program_options)
 
 target_include_directories(
-  bb-recipe-depend PRIVATE
+  bb-depends-dot PRIVATE
   "${PROJECT_SOURCE_DIR}/bbrd")
-target_compile_features(bb-recipe-depend PRIVATE cxx_std_17)
+target_compile_features(bb-depends-dot PRIVATE cxx_std_17)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
   add_subdirectory("test")
 endif()
 
 include(GNUInstallDirs)
-install(TARGETS bb-recipe-depend RUNTIME
+install(TARGETS bb-depends-dot RUNTIME
         DESTINATION ${CMAKE_INSTALL_BINDIR})
 

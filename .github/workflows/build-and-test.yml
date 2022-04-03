@@ -33,12 +33,12 @@ jobs:
         && cmake -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_TESTING=On ..
         && make -j2
     - name: Run
-      run: ./build/bb-recipe-depend --version
+      run: ./build/bb-depends-dot --version
     - name: Run Test
-      run: ./build/test/bitbake-recipe-depend-test
+      run: ./build/test/bb-depends-dot-test
     - name: Test install
       run: >
         cd build
         && sudo make install
         && rm -rf *
-        && bb-recipe-depend --version
+        && bb-depends-dot --version

@@ -14,10 +14,10 @@ const int version_minor = @PROJECT_VERSION_MINOR@;
 
 void PrintVersion(std::ostream& out)
 {
-  out << "bb-recipe-depend v" << version_major << "." << version_minor
-      << ", Copyright (C) 2021 Thomas Trapp\n"
+  out << "bb-depends-dot v" << version_major << "." << version_minor
+      << ", Copyright (C) 2022 Thomas Trapp\n"
       << "Released under the MIT License\n"
-      << "https://github.com/thomastrapp/bitbake-recipe-depend\n";
+      << "https://github.com/thomastrapp/bb-depends-dot\n";
 }
 
 
