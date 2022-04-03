@@ -1,10 +1,11 @@
-BitBake Recipe Dependencies
-===========================
+bb-depends-dot
+==============
 
-Inspect recipes from Bitbake's `task-depends.dot` and the dependencies
-between these recipes.
+Inspect recipes from Bitbake's `task-depends.dot` and the dependencies between these recipes.
 
-Note: [openembedded-core](https://github.com/openembedded/openembedded-core) ships the script [oe-depends-dot](https://github.com/openembedded/openembedded-core/blob/0441b53d55a919b5ac42e997f4092053b017b553/scripts/oe-depends-dot), which solves the same problem as this project. But that script does not work anymore, because the output of `bitbake -g` has changed.
+[Yocto/Poky](https://github.com/yoctoproject/poky) ships the script [oe-depends-dot](https://github.com/yoctoproject/poky/blob/cd369a732e17e57794a89519de6bab3847330630/scripts/oe-depends-dot) which has stopped working some years ago when the output of `bitbake -g` changed. The same is true for [oe-depends-dot](https://github.com/openembedded/openembedded-core/blob/0441b53d55a919b5ac42e997f4092053b017b553/scripts/oe-depends-dot) from [openembedded-core](https://github.com/openembedded/openembedded-core).  
+`bb-depends-dot` is a replacement.
+
 
 Example:
 
@@ -52,6 +53,21 @@ Options:
   -V [ --version ]          Print version
 ```
 
+## Install
+
+Navigate to [bb-depends-dot's latest release](https://github.com/thomastrapp/bb-depends-dot/releases/latest) and download `bb-depends-dot-static-linux-x86_64-*.zip`.
+
+```shell
+unzip bb-depends-dot-static-linux-x86_64-*.zip
+chmod +x bb-depends-dot
+# move this binary to somewhere on your $PATH, e.g.:
+mv -i bb-depends-dot ~/.local/bin/
+```
+
+This binary runs on any 64-bit Linux with GLIBC≥2.14, which was released back in the year 2011.
+
+## Build from source:
+
 Dependencies:
 
 * A compiler with `C++17` support, such as `g++` ≥7 or  `clang++` ≥5
@@ -60,8 +76,6 @@ Dependencies:
 * `libboost-graph-dev`
 * `libboost-program-options-dev`
 
-Build and install:
-
 ```
 cd build
 cmake ..
@@ -69,7 +83,7 @@ make
 make install
 ```
 
-How it works:
+## How it works:
 
 * `bitbake -g` generates a file called `task-depends.dot` containing a graph described with the [DOT language](https://en.wikipedia.org/wiki/DOT_(graph_description_language)).
 * This graph contains an edge for each dependency between [tasks](https://docs.yoctoproject.org/ref-manual/tasks.html) of the [recipes](https://docs.yoctoproject.org/dev-manual/common-tasks.html#writing-a-new-recipe) contained in a build.
