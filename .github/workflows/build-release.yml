@@ -1,0 +1,42 @@
+name: Release
+on: [push]
+
+env:
+  BBRD_BOOST_VERSION: "1.78.0"
+  BBRD_BOOST_SHA256: "94ced8b72956591c4775ae2207a9763d3600b30d9d7446562c552f0a14a63be7"
+  BBRD_BOOST_INSTALL_PATH: "${{ github.workspace }}/boost_root"
+
+jobs:
+  release:
+    name: Build Release
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/pypa/manylinux2014_x86_64
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - uses: actions/cache@v2
+      id: boost_cache
+      with:
+        path: ${{ env.BBRD_BOOST_INSTALL_PATH }}
+        key: manylinux-boost-${{ env.BBRD_BOOST_VERSION }}
+
+    - name: Install boost
+      if: steps.boost_cache.outputs.cache-hit != 'true'
+      run: ./scripts/github-actions/install-static-boost.sh
+
+    - name: Build and install bb-depends-dot
+      run: ./scripts/github-actions/build-static-bb-depends-dot.sh
+
+    - name: Prepare upload
+      run: |
+        mkdir upload
+        cp /usr/local/bin/bb-depends-dot upload/
+        strip --strip-unneeded upload/bb-depends-dot
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: bb-depends-dot-static-linux-x86_64-${{ github.sha }}
+        path: upload
